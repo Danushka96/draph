@@ -1,2 +1,2 @@
-# draph
-Draph Data Type in Linked List Implementation
+# Graph
+Graph Data Type in Linked List Implementation
