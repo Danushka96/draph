@@ -56,6 +56,7 @@ class graph:
 					tempedge=tempedge.next
 				tempedge.next=edge
 
+	#Print the Whole Graph
 	def printme(self):
 		temp=self.head
 		while (temp!=None):
@@ -68,15 +69,86 @@ class graph:
 			temp=temp.bottom
 			print()
 
+	#Print the Number of Indegrees to a selected Node
+	def indegree(self,node):
+		temp=self.head
+		count=0
+		while(temp!=None):
+			hr=temp
+			while(hr!=None):
+				if (hr.data==node):
+					count+=1
+				hr=hr.next
+			temp=temp.bottom
+		print("The Number of Indegrees for node ",node," is ",count)
+
+	#Print the Number of Indegrees to a selected Node
+	def outdegree(self,node):
+		temp=self.head
+		count=0
+		while (temp.data!=node):
+			temp=temp.bottom
+		temp=temp.next
+		while (temp!=None):
+			count+=1
+			temp=temp.next
+		print("The Number of Outdegrees for node ",node," is ",count)
+#End of the Class graph
+
+def addvertlooper():
+	d=input("Enter vertex")
+	addvert(d)
+	print()
+	ans=input("Do you want to input another vertex?(Y/N)")
+	if (ans.upper()=="Y"):
+		addvertlooper()
+	elif (ans.upper()=="N"):
+		menu()
+	else:
+		print("Invalied Input Try Again!")
+		menu()
+
+def addedgelooper():
+	d=input("Enter Vertex From")
+	e=input("Enter Vertex To")
+	addedge(d,e)
+	print()
+	ans=input("Do you want to input another edge?(Y/N)")
+	if (ans.upper()=="Y"):
+		addvertlooper()
+	elif (ans.upper()=="N"):
+		menu()
+	else:
+		print("Invalied Input Try Again!")
+		menu()
+
+def interface():
+	print("_____________________________________________________________________________________________________________UCSC_____")
+	print("  ________                        .__      .____     .__          __                .___ .____     .__           __   ")
+	print(" /  _____/_______ _____   ______  |  |__   |    |    |__|  ____  |  | __  ____    __| _/ |    |    |__|  _______/  |_ ")
+	print("/   \  ___\_  __ \\\_   \  \____ \ |  |  \  |    |    |  | /    \ |  |/ /_/ __ \  / __ |  |    |    |  | /  ___/\   __\\")
+	print("\    \_\  \|  | \/ / __ \_|  |_> >|   Y  \ |    |___ |  ||   |  \|    < \  ___/ / /_/ |  |    |___ |  | \___ \  |  |  ")
+	print(" \______  /|__|   (____  /|   __/ |___|  / |_______ \|__||___|  /|__|_ \ \___  >\____ |  |_______ \|__|/____  > |__|  ")
+	print("        \/             \/ |__|         \/          \/         \/      \/     \/      \/          \/         \/        ")
+	print("______________________________________________________________________________________________________________________")
+	print()
+	print("This programme is based on Basic Graph Operations")
+
+def menu():
+	print("Select the Command and enter the number of the Command")
+	print()
+	print("//////////////////////////////////////////////////////////////////////////////////////////////")
+	print("// 1.Create graph \t 2.Enter new Vertex \t 3.Enter new Edge \t 4.number of vertex //")
+	print("// 5.Indegree \t \t 6.Outdegree \t \t 7.Print Linked List \t 8.Exit \t    //")
+	print("//////////////////////////////////////////////////////////////////////////////////////////////")
+	x=int(input("Enter the Command Number: "))
+
+	if (x==1):
+		print("The new Graph created Successfully")
+	elif (x==2):
+		addvertlooper()
+	elif (x==3):
+		addedgelooper()
+	elif (x==4):
+		
 a=graph()
-a.addvert(5)
-a.addvert(2)
-a.addvert(3)
-a.addvert(8)
-a.addedge(5,2)
-a.addedge(5,3)
-a.addedge(5,8)
-a.addedge(2,5)
-a.addedge(2,8)
-a.addedge(3,2)
-a.printme()
