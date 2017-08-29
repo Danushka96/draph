@@ -33,7 +33,7 @@ class graph:
 			temp=self.head
 			while (temp.bottom!=None): #find for a node where next one is free for enter
 				temp=temp.bottom
-			temp.bottom=New 	#Add the created new node to the free space
+			temp.bottom=new 	#Add the created new node to the free space
 		self.count+=1
 
 	#Add a New Edge
@@ -65,11 +65,18 @@ class graph:
 			while (hr!=None):
 				print(hr.data,",", end="")
 				hr=hr.next
-				print()
 			temp=temp.bottom
 			print()
 
 a=graph()
 a.addvert(5)
+a.addvert(2)
+a.addvert(3)
+a.addvert(8)
 a.addedge(5,2)
+a.addedge(5,3)
+a.addedge(5,8)
+a.addedge(2,5)
+a.addedge(2,8)
+a.addedge(3,2)
 a.printme()
