@@ -30,31 +30,58 @@ class graph:
 		if (self.head==None):
 			self.head=new
 		else:
-			temp=self.head
-			while (temp.bottom!=None): #find for a node where next one is free for enter
-				temp=temp.bottom
-			temp.bottom=new 	#Add the created new node to the free space
-		self.count+=1
+			found=False
+			ftemp=self.head
+			while (ftemp!=None):
+				if(ftemp.data==value):
+					found=True
+				ftemp=ftemp.bottom
+			if (not found):
+				temp=self.head
+				while (temp.bottom!=None): #find for a node where next one is free for enter
+					temp=temp.bottom
+				temp.bottom=new 	#Add the created new node to the free space
+				self.count+=1
+			else:
+				print("The Entered Vertex is already exist in the graph")
 
 	#Add a New Edge
 	def addedge(self,fromm,to):
+		vfound=True
+		efound=True
+		cfound=False
 		if (self.head==None):
 			print("The Graph is Empty! Enter some Nodes") #If there exist no vertex in the graph show this error
 		else:
 			temp=self.head
 			while (temp.data!=fromm):
 				temp=temp.bottom
-				if (temp.data==None):
-					print("The vertex not found in the graph") #If Entered vertex is not found display this
+				if (temp==None):
+					print("The vertex was not found in the graph") #If Entered vertex is not found display this
+					vfound=False
 					break
-			edge=edgenode(to)
-			if (temp.next==None):
-				temp.next=edge
-			else:
-				tempedge=temp
-				while (tempedge.next!=None): #Find the node which next one is empty
-					tempedge=tempedge.next
-				tempedge.next=edge
+			etemp=self.head
+			while (etemp.data!=to):
+				etemp=etemp.bottom
+				if (etemp==None):
+					print("Can't Establish a connection with target node! Try Again")
+					efound=False
+					break
+
+			if (vfound and efound):
+				edge=edgenode(to)
+				if (temp.next==None):
+					temp.next=edge
+				else:
+					tempedge=temp
+					while (tempedge.next!=None): #Find the node which next one is empty
+						tempedge=tempedge.next
+						if (tempedge.data==to):
+							cfound=True
+					if (not cfound):
+						tempedge.next=edge
+					else:
+						print("The Connection is Already Exist in this Graph")
 
 	#Print the Whole Graph
 	def printme(self):
@@ -80,7 +107,7 @@ class graph:
 					count+=1
 				hr=hr.next
 			temp=temp.bottom
-		print("The Number of Indegrees for node ",node," is ",count)
+		print("The Number of Indegrees for node ",node," is ",count-1)
 
 	#Print the Number of Indegrees to a selected Node
 	def outdegree(self,node):
@@ -93,13 +120,17 @@ class graph:
 			count+=1
 			temp=temp.next
 		print("The Number of Outdegrees for node ",node," is ",count)
+
+	def counter(self):
+		print("The Number of Vertexes in this Graph is ",self.count+1)
+
 #End of the Class graph
 
 def addvertlooper():
-	d=input("Enter vertex")
-	addvert(d)
+	d=input("Enter vertex: ")
+	a.addvert(d)
 	print()
-	ans=input("Do you want to input another vertex?(Y/N)")
+	ans=input("Do you want to input another vertex?(Y/N) ")
 	if (ans.upper()=="Y"):
 		addvertlooper()
 	elif (ans.upper()=="N"):
@@ -109,18 +140,22 @@ def addvertlooper():
 		menu()
 
 def addedgelooper():
-	d=input("Enter Vertex From")
-	e=input("Enter Vertex To")
-	addedge(d,e)
+	d=input("Enter Vertex From: ")
+	e=input("Enter Vertex To: ")
+	a.addedge(d,e)
 	print()
-	ans=input("Do you want to input another edge?(Y/N)")
+	ans=input("Do you want to input another edge?(Y/N) ")
 	if (ans.upper()=="Y"):
-		addvertlooper()
+		addedgelooper()
 	elif (ans.upper()=="N"):
 		menu()
 	else:
 		print("Invalied Input Try Again!")
 		menu()
+
+def reset():
+	global a
+	a=graph()
 
 def interface():
 	print("_____________________________________________________________________________________________________________UCSC_____")
@@ -135,6 +170,7 @@ def interface():
 	print("This programme is based on Basic Graph Operations")
 
 def menu():
+	print()
 	print("Select the Command and enter the number of the Command")
 	print()
 	print("//////////////////////////////////////////////////////////////////////////////////////////////")
@@ -145,10 +181,38 @@ def menu():
 
 	if (x==1):
 		print("The new Graph created Successfully")
+		reset()
+		menu()
 	elif (x==2):
 		addvertlooper()
+		menu()
 	elif (x==3):
 		addedgelooper()
+		menu()
 	elif (x==4):
-		
+		a.counter()
+		menu()
+	elif (x==5):
+		y=input("Enter the Node you want to find the Number of indegrees: ")
+		a.indegree(y)
+		menu()
+	elif (x==6):
+		y=input("Enter the Node you want to find the Number of outdegrees: ")
+		a.outdegree(y)
+		menu()
+	elif (x==7):
+		a.printme()
+		menu()
+	elif (x==8):
+		print("Thanks for using this Programme! Bye!")
+		exit()
+	else:
+		print("The Input is Not valied! Please try again.")
+		menu()
+
+def start():
+	interface()
+	menu()
+
 a=graph()
+start()
