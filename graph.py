@@ -168,13 +168,14 @@ class graph:
 						time.sleep(1)
 
 				edge=edge.next
-			if (temp.bottom.data==value) and (temp.bottom!=None):
-				print()
-				print("Hah haaa, I Found it, Deleting......")
-				temp.bottom=temp.bottom.bottom
-				time.sleep(1)
-				print("Done")
-				time.sleep(1)
+			if(temp.bottom!=None):
+				if (temp.bottom.data==value):
+					print()
+					print("Hah haaa, I Found it, Deleting......")
+					temp.bottom=temp.bottom.bottom
+					time.sleep(1)
+					print("Done")
+					time.sleep(1)
 			temp=temp.bottom
 
 
