@@ -4,7 +4,9 @@
 #This is the Implementation of Graph Data Structure using Two Linked Lists
 
 # Node Implementation
-#Class node for edges
+# Class node for edges
+import time
+
 class edgenode:
 	def __init__(self,data):
 		self.data=data
@@ -124,6 +126,58 @@ class graph:
 	def counter(self):
 		print("The Number of Vertexes in this Graph is ",self.count+1)
 
+	def deletenode(self,value):
+		print()
+		print("Searching, Please wait ........")
+		time.sleep(1)
+		temp=self.head
+		if (temp.data==value):
+			print()
+			print("Hah haaa, I Found it, Deleting......")
+			time.sleep(1)
+			self.head=temp.bottom
+			temp.bottom=None
+			print("Done")
+			time.sleep(1)
+
+		while (temp!=None):
+			edge=temp.next
+			while(edge!=None):
+				if (edge.next!=None):
+					if (edge.next.data==value) and (edge.next.next!=None):
+						print()
+						print("Connection Found at node",temp.data,", Deleting....")
+						time.sleep(1)
+						edge.next=edge.next.next
+						print("Done")
+						time.sleep(1)
+					elif (edge.next.data==value) and (edge.next.next==None):
+						print()
+						print("Connection Found at node",temp.data,", Deleting....")
+						time.sleep(1)
+						edge.next=None
+						print("Done")
+						time.sleep(1)
+				else:
+					if edge.data==value:
+						print()
+						print("Connection Found at node",temp.data,", Deleting....")
+						time.sleep(1)
+						temp.next=None
+						print("Done")
+						time.sleep(1)
+
+				edge=edge.next
+			if (temp.bottom.data==value) and (temp.bottom!=None):
+				print()
+				print("Hah haaa, I Found it, Deleting......")
+				temp.bottom=temp.bottom.bottom
+				time.sleep(1)
+				print("Done")
+				time.sleep(1)
+			temp=temp.bottom
+
+
 #End of the Class graph
 
 def addvertlooper():
@@ -157,6 +211,10 @@ def reset():
 	global a
 	a=graph()
 
+def deleteme():
+	j=input("Enter the Node you want to delete: ")
+	a.deletenode(j)
+
 def interface():
 	print("_____________________________________________________________________________________________________________UCSC_____")
 	print("  ________                        .__      .____     .__          __                .___ .____     .__           __   ")
@@ -174,16 +232,15 @@ def menu():
 	print("Select the Command and enter the number of the Command")
 	print()
 	print("//////////////////////////////////////////////////////////////////////////////////////////////")
-	print("// 1.Create graph \t 2.Enter new Vertex \t 3.Enter new Edge \t 4.number of vertex //")
+	print("// 1.Enter new Vertex \t 2.Delete Vertex \t 3.Enter new Edge \t 4.number of vertex //")
 	print("// 5.Indegree \t \t 6.Outdegree \t \t 7.Print Linked List \t 8.Exit \t    //")
 	print("//////////////////////////////////////////////////////////////////////////////////////////////")
 	x=int(input("Enter the Command Number: "))
 
-	if (x==1):
-		print("The new Graph created Successfully")
-		reset()
+	if (x==2):
+		deleteme()
 		menu()
-	elif (x==2):
+	elif (x==1):
 		addvertlooper()
 		menu()
 	elif (x==3):
